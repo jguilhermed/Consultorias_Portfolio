@@ -146,7 +146,7 @@ def principal():
     st.altair_chart(chart, theme="streamlit", use_container_width=True)
 
     #Gráfico de Barras da Categoria AB_mensal
-    st.header("Habilitações Categoria B Realizadas Mensalmente")
+    st.header("Habilitações Categoria AB Realizadas Mensalmente")
     chart = altair.Chart(AB_mensal).mark_bar(size=70).encode(
         x='Mes',
         y='Qtd').interactive()
@@ -174,8 +174,15 @@ def principal():
     for i in y1:
         y2.append(round(i*1.25))
 
+    y3 = []
+    for i in y:
+        y3.append(i)
+    while len(y3)<len(y2):
+        y3.append(0)
+
     pred = pd.DataFrame({'Previsto': y1,
-                         'Meta_Mensal': y2}, index=list(range(1,13)))
+                         'Meta_Mensal': y2,
+                         'Realizado': y3}, index=list(range(1,13)))
     st.header("Previsão e Metas Para Matrículas de 1ª Habilitação Para os Próximos Meses:")
     st.dataframe(pred)
 
