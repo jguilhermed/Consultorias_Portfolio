@@ -125,11 +125,10 @@ def principal():
         color='Servico').interactive()
     st.altair_chart(chart, theme="streamlit", use_container_width=True)
 
-    #Gráfico de Pizza:
-    st.header("Proporção Entre o Total de Serviços Prestados:")
-    plt.pie( x=dados2['Servico'].value_counts(), 
-            labels=['OUTROS', '1ª HABILITAÇÃO B', '1ª HABILITAÇÃO AB', 'RECICLAGEM', '1ª HABILITAÇÃO A'])
-    st.pyplot()
+    # Funil Serviços
+    st.header('Percentual de Serviços Prestados:')
+    funil_serv = px.funnel_area(data_frame=dados2, names='Servico')
+    st.plotly_chart(funil_serv)
 
     #Gráfico de Barras da Categoria AB_A_mensal
     st.header("Habilitações Categoria AB, B e A Realizadas Mensalmente")
@@ -152,12 +151,9 @@ def principal():
         y='Qtd').interactive()
     st.altair_chart(chart, theme="streamlit", use_container_width=True)
 
-    # Funil Serviços
-    funil_serv = px.funnel_area(data_frame=dados2, names='Servico', title='Percentual de Serviços Prestados')
-    st.plotly_chart(funil_serv)
-
     #Distribuição dos Bairros
-    funil_bairros = px.funnel_area(data_frame=dados, names='Bairro', title="Percentual de Presença nos Bairros de São José")
+    st.header("Percentual de Presença nos Bairros de São José:")
+    funil_bairros = px.funnel_area(data_frame=dados, names='Bairro')
     st.plotly_chart(funil_bairros)
 
     #Modelo de Regressão Quadrática
