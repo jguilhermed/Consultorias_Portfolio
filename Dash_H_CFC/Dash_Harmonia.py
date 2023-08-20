@@ -84,7 +84,8 @@ def organiza_dados(dados):
 
 def v2_dados(dados):
 
-    dados_2 = dados.groupby(['Mes', 'Servico', 'Ano', 'Idade'], as_index = False).agg({'Bairro': 'count'})
+    dados_2 = dados.groupby(['Mes', 'Servico', 'Ano', 'Genero', 'Idade'], as_index = False).agg({'Bairro': 'count'})
+    dados_2['Faixa_Etaria'] = pd.cut(dados_2['Idade'], 4, labels = ['18-23', '24-29', '30-35', '>35'] )
     dados_2.rename(columns = {'Bairro': 'Qtd'}, inplace = True)
     return dados_2
 
@@ -150,6 +151,22 @@ def principal():
         x='Mes',
         y='Qtd').interactive()
     st.altair_chart(chart, theme="streamlit", use_container_width=True)
+
+         #Gráfico de Barras - Serviços por faixa Etária.
+    st.header("Serviços Realizados Por Faixa Etária:")
+    chart = altair.Chart(dados2).mark_bar(size=70).encode(
+        x='Servico',
+        y='Qtd',
+        color='Faixa_Etaria').interactive()
+    st.altair_chart(chart, theme='streamlit', use_container_width=True)
+
+         #Gráfico de Barras - Serviços por Gênero.
+    st.header("Serviços Realizados Por Genero:")
+    chart = altair.Chart(dados2).mark_bar(size=70).encode(
+        x='Servico',
+        y='Qtd',
+        color='Genero').interactive()
+    st.altair_chart(chart, theme='streamlit', use_container_width=True)
 
     #Distribuição dos Bairros
     st.header("Percentual de Presença nos Bairros de São José:")
