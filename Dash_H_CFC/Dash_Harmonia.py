@@ -196,7 +196,7 @@ def principal():
     pred = pd.DataFrame({'Previsto': y1,
                          'Meta_Mensal': y2,
                          'Realizado': y3}, index=list(range(1,13)))
-    st.header("Previsão e Metas Para Matrículas de 1ª Habilitação Para os Próximos Meses:")
+    st.header("Previsões, Metas  Para Matrículas de 1ª Habilitação Para os Próximos Meses:")
     st.dataframe(pred)
 
     st.header("Gráfico das Previsões e Metas Para os Próximos Meses:")
