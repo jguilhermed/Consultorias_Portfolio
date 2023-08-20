@@ -191,7 +191,7 @@ def principal():
     for i in y:
         y3.append(i)
     while len(y3)<len(y2):
-        y3.append(0)
+        y3.append(np.nan)
 
     pred = pd.DataFrame({'Previsto': y1,
                          'Meta_Mensal': y2,
